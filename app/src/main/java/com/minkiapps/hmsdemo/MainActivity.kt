@@ -13,23 +13,37 @@ import com.huawei.hms.maps.SupportMapFragment
 
 class MainActivity : AppCompatActivity(), OnMapReadyCallback {
 
+    private lateinit var supportMapFragment : SupportMapFragment
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         MapsInitializer.initialize(this)
 
         setContentView(R.layout.activity_main)
 
+        supportMapFragment = supportFragmentManager
+            .findFragmentById(R.id.mapfragment_mapfragmentdemo) as SupportMapFragment
+
         if (!hasPermissions(this, *RUNTIME_PERMISSIONS)) {
             ActivityCompat.requestPermissions(this, RUNTIME_PERMISSIONS, REQUEST_CODE)
+        } else {
+            supportMapFragment.getMapAsync(this)
         }
-
-        val supportMapFragment = supportFragmentManager
-            .findFragmentById(R.id.mapfragment_mapfragmentdemo) as SupportMapFragment?
-        supportMapFragment?.getMapAsync(this)
     }
 
     override fun onMapReady(map: HuaweiMap) {
         map.isMyLocationEnabled = true
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if(hasPermissions(this, *RUNTIME_PERMISSIONS)) {
+            supportMapFragment.getMapAsync(this)
+        }
     }
 
     private fun hasPermissions(context: Context, vararg permissions: String): Boolean {

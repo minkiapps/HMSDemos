@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config>
+    <!-- disable cleartext in base with empty anchors to turn off system trusted CAs -->
+    <base-config cleartextTrafficPermitted="false"><trust-anchors /></base-config>
+
+    <!-- local test domains -->
+    <domain-config cleartextTrafficPermitted="true">
+        <domain includeSubdomains="false">localhost</domain>
+        <domain includeSubdomains="false">127.0.0.1</domain>
+        <!-- Android emulator -->
+        <domain includeSubdomains="false">10.0.2.2</domain>
+        <!-- Genymotion emulator -->
+        <domain includeSubdomains="false">10.0.3.2</domain>
+    </domain-config>
+
+    <!-- for domains without pinning, trust all system CAs -->
+    <domain-config>
+        <domain includeSubdomains="true">google.com</domain>
+        <domain includeSubdomains="true">huawei.com</domain>
+        <trust-anchors>
+            <certificates src="system" />
+        </trust-anchors>
+    </domain-config>
+
+</network-security-config>

@@ -1,4 +1,6 @@
 buildscript {
+    //AGC plugin is not adapted to latest Gradle plugin management format, see SO link below
+    //https://stackoverflow.com/questions/71121109/com-huawei-agconnect-plugin-not-found
     repositories {
         google()
         maven { url 'https://developer.huawei.com/repo/' }
