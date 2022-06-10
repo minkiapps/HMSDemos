@@ -1,0 +1,12 @@
+*.iml
+.gradle
+/local.properties
+/.idea
+.DS_Store
+/build
+/store
+app/agconnect-services.json
+/captures
+.externalNativeBuild
+.cxx
+local.properties
